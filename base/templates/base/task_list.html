@@ -7,8 +7,21 @@
     <title>Document</title>
 </head>
 <body>
+    {% if request.user.is_authenticated %}
+        <p>{{request.user}}</p>
+        <a href="{% url 'logout' %}">logout</a>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        {%endif%}
 
-    <h1>LA LISTE </h1>
+        <hr>
+    <h1>LA LISTE {{color}}</h1>
+<!-- Search -->
+<form method="GET">
+    <input type="text" name="search-area" value="{{search_input}}">
+    <input type="submit" value="search">
+</form>
+
     <a href="{% url 'create' %}">Ajouter taches</a>
     <table>
             <TR>
