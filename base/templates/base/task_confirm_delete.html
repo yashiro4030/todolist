@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base/main.html'%}
+{% block content %}
 
-    <form method="POST">
+<div class="header-bar">
+
+  <a href="{% url 'tasks' %}">&#8592; accueil</a>
+
+</div>
+
+
+<div class="card-body">
+   <form method="POST">
         {%csrf_token%}
         {{form.as_p}}
       <p>voulez supprimer la tache ? "{{liste}}"</p> 
-        <input type="submit" value="delete">
+        <input class="button" type="submit" value="delete">
       </form> 
+</div>
+   
 
-      <a href="{% url 'tasks' %}">accueil</a>
-</body>
-</html>
+      
+      {% endblock content %}

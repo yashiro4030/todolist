@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base/main.html' %}
 
-    <h1>detail </h1>
-    <table>
-            <tr><td> {{detail.service}}</td></tr>
-            <tr> <td>{{detail.check}}</td></tr>
-            <tr><td>{{detail.create}}</td></tr>
-            <tr  <td> {{detail.remarque}}</td>></tr>
-            <tr> <td>{{detail.action}}</td></tr>
+{% block content%}
+
+
+<div class="header-bar">
+
+    <h1>Details </h1>
+</div>
+
+    <div class="card-body">
+
+ <table>
+            <tr><td><b>SERVICE</b>: {{detail.service}}</td></tr>
+            <tr><td><b>SYSTEM</b>: {{detail.systeme}}</td></tr>
+            <tr> <td><b>CHECK</b> : {{detail.check}}</td></tr>
+            <tr><td><b>DATE</b> : {{detail.create}}</td></tr>
+            <tr><td><b>REMARQUE</b> :  {{detail.remarque}}</td></tr>
+            <tr> <td> <b>ACTION</b> : {{detail.action}}</td></tr>
                   
                    
                     
@@ -24,12 +26,14 @@
 
 
     </table>
+
+    </div>
+   
        
         
         
        
    
-    </table>
+  
     
-</body>
-</html>
+{% endblock content%}

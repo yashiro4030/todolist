@@ -1,11 +1,23 @@
-<h>Login</h>
+{% extends 'base/main.html'%}
+{% block content%}
 
+<div class="header-bar">
 
-<form method="POST">
+  <h1>Login</h1>
+</div>
+
+<div class="card-body">
+
+  <form method="POST">
     {%csrf_token%}
     {{form.as_p}}
   
-    <input type="submit" value="OK">
+    <input class="button" type="submit" value="OK">
   </form> 
-
   <P>DON T HAVE AN ACCOUNT <a href="{% url 'register'%}">Register</a></P>
+</div>
+
+
+
+  
+  {%endblock content %}
