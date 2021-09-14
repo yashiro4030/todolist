@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db.models.query_utils import select_related_descend
-from base.models import Task
+from .models import Task
 from django.db.models.base import Model
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
@@ -14,8 +14,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 #Pour faire l'inscription d'un utilisateur on import les 3 lignes en-dessous
 from django.views.generic.edit import FormView
-from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth.forms import UserCreationForm, UsernameField 
 from django.contrib.auth import login
+from django.http import request
 
 
 
@@ -29,6 +30,8 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
+        if User.username == "mme.janah":
+            print(User.username)
         return reverse_lazy('tasks')
 
 
@@ -67,6 +70,27 @@ class TaskList(LoginRequiredMixin,ListView):
 
        context['search_input']=search_input  #si on cherche rien ->affiche la liste
        return context
+
+
+class TaskGolabl(LoginRequiredMixin,ListView):
+   model =Task
+   context_object_name = 'listeG' #pour changer ' object_list' qui affiche les data dans la page HTML, par notre propre attribut
+   template_name='base/accueil.html'
+   def get_context_data(self, **kwargs): # methode qui permet de afficher les taches d'user connecté (pas tous les taches des autre user)
+       context = super().get_context_data(**kwargs)
+      # context['liste'] = context['liste'].filter(user = self.request.user)
+       context['count'] = context['listeG'].filter(check = False).count() # ramene les taches non cochés
+
+      # search_input = self.request.GET.get('search-area') or '' #recuperer le nom du champ html 
+       search_drop = self.request.GET.get('search-drop')
+
+       if search_drop:
+           #context['listeG']=context['listeG'].filter(user__username= search_input) #si on tape ->afficher les sys qui commancent par...
+           context['listeG']=context['listeG'].filter(user__username= search_drop)
+      # context['search_input']=search_input  #si on cherche rien ->affiche la liste
+       context['search_input']=search_drop
+       return context
+    
 
 
 

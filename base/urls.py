@@ -1,14 +1,15 @@
 
 
-from base.models import Task
+from .models import Task
 from django.urls import path
 from django.views.generic.base import View
-from .views import CustomLoginView, TaskDelete, TaskList,TaskDetail,TaskCreate, TaskUpadte,RegisterPage
+from .views import CustomLoginView, TaskDelete, TaskGolabl, TaskList,TaskDetail,TaskCreate, TaskUpadte,TaskGolabl,RegisterPage
 from django.contrib.auth.views import LogoutView
 
 
 
 urlpatterns = [
+    path('index/',TaskGolabl.as_view(),name='accueil'),
     path('login/', CustomLoginView.as_view(),name='login'),
     path('logout/', LogoutView.as_view(next_page='login'),name='logout'),
     path('register/', RegisterPage.as_view(),name='register'),

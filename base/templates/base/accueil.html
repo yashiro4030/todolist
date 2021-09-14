@@ -1,0 +1,86 @@
+{% extends 'base/main.html'%}
+
+{% block content %}
+<div class="header-bar">
+    <div>
+            <h1>Hello {{request.user}}</h1>
+            <h3 style="margin: 0px;"> Vous avez  <i>{{count}}</i> tâches non checké {{count}}</h3>
+    </div>
+    {% if request.user.is_authenticated %}
+
+<a href="{% url 'logout' %}">logout</a>
+{% else %}
+<a href="{% url 'login' %}">Login</a>
+{%endif%}
+
+
+
+</div>
+
+
+
+<div id="search-add-wrapper">
+    <form method="GET" style="margin-top:20px; display: flex;">
+      <!--<input type="text" name="search-area" value="{{search_input}}">-->  
+       
+        <select name="search-drop">
+            <option value=""></option>
+            <option value="driss">driss</option>
+            <option value="hanane">hanane</option>
+            <option value="aymen">aymen</option>
+            <option value="wissal">wissal</option>
+            <option value="majda">majda</option>
+        </select>
+        <input class="button" type="submit" value="search">
+        </form>
+        <a id="add-link" href="{% url 'create' %}">&#x2b;</a>
+</div>
+
+
+
+
+
+
+
+
+<div class="tasks-itms-wrapper">
+    {% for task in listeG %}
+         
+    <div class="tasks-wrapper">
+        {% if task.check %}
+
+        <div class="task-title">
+            <div class="tasks-complete-icons"></div>
+
+          <ul> <i><s><a href="{% url 'detail' task.id %}">{{task}}</a></s></i> 
+                <li><font color='gray'>Utilisateur :</font>  <a href="{% url 'detail' task.id %}">{{task.user.username}}</a></li>
+                <li><font color='gray'>Service :</font>  <a href="{% url 'detail' task.id %}">{{task.service}}</a></li>       
+            </ul> &nbsp;|&nbsp;
+            
+
+       </div>
+       <a class="delete-link" href="{% url 'task-delete' task.id %}">&#x292C;</a>
+       {% else %}
+       <div class="task-title">
+        <div class="tasks-incomplete-icons"></div>
+
+        <ul> <a href="{% url 'detail' task.id %}">{{task}}</a> 
+            <li><font color='gray'>Utilisateur :</font>  <a href="{% url 'detail' task.id %}">{{task.user.username}}</a></li>
+            <li><font color='gray'>Service :</font>  <a href="{% url 'detail' task.id %}">{{task.service}}</a></li>
+        </ul> &nbsp;|&nbsp;
+        
+   </div>
+        <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
+        {% endif %}
+        
+    </div>
+
+    {% empty %}
+    <h3>nn itm for list</h3>
+        {% endfor %}
+
+</div>
+
+
+
+{% endblock content %}
